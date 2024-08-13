@@ -2,6 +2,7 @@
     "name": "coelnconcept/cc-image",
     "type": "typo3-cms-extension",
     "description": "Provide image viewhelpers and support for WebP",
+    "license": "MIT",
     "authors": [],
     "require": {
         "typo3/cms-core": "^12.4"

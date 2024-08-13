@@ -1,0 +1,27 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:cc="http://typo3.org/ns/CoelnConcept/CcImage/ViewHelpers" data-namespace-typo3-fluid="true">
+<picture>
+	<f:if condition="{file.properties.width} && ({file.properties.mime_type} == 'image/jpeg' || {file.properties.mime_type} == 'image/png' || {file.properties.mime_type} == 'image/webp')">
+		<f:alias map="{breakpoints:{1250:{1:1920}, 1000:{1:1280,2:1920}, 750:{1:960,2:1280}, 480:{1:768,2:960}, 250:{1:480,2:768}}}">
+		<f:for each="{breakpoints}" key="deviceWidth" as="imageWidth">
+			<f:alias map="{next:'{breakpoints->cc:arrayNext(key:deviceWidth)}'}">
+			<f:if condition="{file.properties.width} >= {imageWidth.1} && (!{dimensions.width} || {dimensions.width} >= {imageWidth.1})">
+				<f:then>
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:file, maxWidth:imageWidth.1, fileExtension:'webp')}{f:if(condition:'{imageWidth.2} && {file.properties.width} >= {deviceWidth}', then:', {cc:uri.image(image:file, maxWidth:imageWidth.2, fileExtension:\'webp\')} 2x')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:file, maxWidth:imageWidth.1)}{f:if(condition:'{imageWidth.2} && {file.properties.width} >= {deviceWidth}', then:', {f:uri.image(image:file, maxWidth:imageWidth.2)} 2x')}" />
+				</f:then>
+				<f:else if="{dimensions.width} && {next.1} < {dimensions.width}">
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:file, maxWidth:dimensions.width, fileExtension:'webp')}{f:if(condition:'{imageWidth.2} && {file.properties.width} >= {deviceWidth}', then:', {cc:uri.image(image:file, maxWidth:imageWidth.2, fileExtension:\'webp\')} 2x')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:file, maxWidth:dimensions.width)}{f:if(condition:'{imageWidth.2} && {file.properties.width} >= {deviceWidth}', then:', {f:uri.image(image:file, maxWidth:imageWidth.2)} 2x')}" />
+				</f:else>
+				<f:else if="!{dimensions.width} && {imageWidth.1} > {file.properties.width} && {next.1} < {file.properties.width}">
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:file, fileExtension:'webp')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:file)}" />
+				</f:else>
+			</f:if>
+			</f:alias>
+		</f:for>
+		</f:alias>
+	</f:if>
+	<f:media class="image-embed-item" file="{file}" width="{dimensions.width}" height="{dimensions.height}" alt="{file.alternative}" title="{file.title}" loading="{settings.media.lazyLoading}" />
+</picture>
+</html>

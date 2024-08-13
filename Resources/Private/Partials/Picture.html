@@ -1,0 +1,31 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:cc="http://typo3.org/ns/CoelnConcept/CcImage/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:alias map="{
+	imageObject:'{cc:image.objectFromSrc(image:image,src:src)}',
+	breakpoints:{1250:{1:1920}, 1000:{1:1280,2:1920}, 750:{1:960,2:1280}, 480:{1:768,2:960}, 250:{1:480,2:768}},
+	imageMaxWidth:'{f:if(condition:maxWidth, then:maxWidth, else:width)}'
+}">
+<picture>
+	<f:if condition="{imageObject.properties.width} && ({imageObject.properties.mime_type} == 'image/jpeg' || {imageObject.properties.mime_type} == 'image/png' || {imageObject.properties.mime_type} == 'image/webp')">
+		<f:for each="{breakpoints}" key="deviceWidth" as="imageWidth">
+			<f:alias map="{next:'{breakpoints->cc:arrayNext(key:deviceWidth)}'}">
+			<f:if condition="{imageObject.properties.width} >= {imageWidth.1} && (!{imageMaxWidth} || {imageMaxWidth} >= {imageWidth.1})">
+				<f:then>
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:image, src:src, maxWidth:imageWidth.1, fileExtension:'webp')}{f:if(condition:'{imageWidth.2} && {imageObject.properties.width} >= {deviceWidth}', then:', {cc:uri.image(image:image, src:src, maxWidth:imageWidth.2, fileExtension:\'webp\')} 2x')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:image, src:src, maxWidth:imageWidth.1)}{f:if(condition:'{imageWidth.2} && {imageObject.properties.width} >= {deviceWidth}', then:', {f:uri.image(image:image, src:src, maxWidth:imageWidth.2)} 2x')}" />
+				</f:then>
+				<f:else if="{imageMaxWidth} && {next.1} < {imageMaxWidth}">
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:image, src:src, maxWidth:imageMaxWidth, fileExtension:'webp')}{f:if(condition:'{imageWidth.2} && {imageObject.properties.width} >= {deviceWidth}', then:', {cc:uri.image(image:image, src:src, maxWidth:imageWidth.2, fileExtension:\'webp\')} 2x')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:image, src:src, maxWidth:imageMaxWidth)}{f:if(condition:'{imageWidth.2} && {imageObject.properties.width} >= {deviceWidth}', then:', {f:uri.image(image:image, src:src, maxWidth:imageWidth.2)} 2x')}" />
+				</f:else>
+				<f:else if="!{imageMaxWidth} && {imageWidth.1} > {imageObject.properties.width} && {next.1} < {imageObject.properties.width}">
+					<source media="(min-width: {deviceWidth}px)" srcset="{cc:uri.image(image:image, src:src, fileExtension:'webp')}" type="image/webp" />
+					<source media="(min-width: {deviceWidth}px)" srcset="{f:uri.image(image:image, src:src)}" />
+				</f:else>
+			</f:if>
+			</f:alias>
+		</f:for>
+	</f:if>
+	<f:image image="{image}" src="{src}" width="{width}" height="{height}" maxWidth="{maxWidth}" maxHeight="{maxHeight}" alt="{alt}" title="{title}" class="{class}" additionalAttributes="{additionalAttributes}" loading="{f:if(condition:loading, then:loading, else:settings.media.lazyLoading)}" />
+</picture>
+</f:alias>
+</html>

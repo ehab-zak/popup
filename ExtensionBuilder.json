@@ -1,0 +1,31 @@
+{
+    "modules": [],
+    "properties": {
+        "backendModules": [],
+        "description": "Provide image viewhelpers and support for WebP",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 8.7.0-10.4.99\n",
+            "disableLocalization": true,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": true,
+            "sourceLanguage": "en",
+            "state": "stable",
+            "targetVersion": "8.7.0-10.4.99",
+            "version": "1.0.1"
+        },
+        "extensionKey": "cc_image",
+        "name": "CC Image",
+        "originalExtensionKey": "",
+        "originalVendorName": "",
+        "persons": [],
+        "plugins": [],
+        "vendorName": "CoelnConcept"
+    },
+    "wires": [],
+    "log": {
+        "last_modified": "2020-06-30 12:00",
+        "extension_builder_version": "9.10.2"
+    }
+}

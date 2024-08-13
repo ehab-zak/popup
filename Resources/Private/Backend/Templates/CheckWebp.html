@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:cc="http://typo3.org/ns/CoelnConcept/CcImage/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{cc:uri.image(src:'EXT:cc_image/Resources/Public/Images/logo_coelnconcept.png', maxWidth:400, fileExtension:'webp')}">
+	<f:then>
+		<p>
+		<picture>
+			<source srcset="/{cc:uri.image(src:'EXT:cc_image/Resources/Public/Images/logo_coelnconcept.png', maxWidth:400, fileExtension:'webp')}" type="image/webp" />
+			<img src="/{f:uri.image(src:'EXT:cc_image/Resources/Public/Images/none.png')}" alt="" />
+		</picture>
+		</p>
+		<p class="alert alert-info">If you see the logo "CoelnConcept ... die Datenstrategen" above, WebP is supported by your webspace.<br/>Please make sure to use a modern browser for this test. Visit <a href="https://caniuse.com/#search=webp" target="_blank">https://caniuse.com/#search=webp</a> for browser support of WebP.</p>
+	</f:then>
+	<f:else>
+		<p class="alert alert-warning">The WebP image could not be generated. Probably WebP is not supported by your webspace.</p>
+	</f:else>
+</f:if>
+
+</html>

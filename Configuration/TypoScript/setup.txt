@@ -1,0 +1,59 @@
+plugin.tx_ccimage {
+	view {
+		templateRootPaths {
+			0 = EXT:cc_image/Resources/Private/Templates/
+			10 = {$plugin.tx_ccimage.view.templateRootPath}
+		}
+
+		partialRootPaths {
+			0 = EXT:cc_image/Resources/Private/Partials/
+			10 = {$plugin.tx_ccimage.view.partialRootPath}
+		}
+
+		layoutRootPaths {
+			0 = EXT:cc_image/Resources/Private/Layouts/
+			10 = {$plugin.tx_ccimage.view.layoutRootPath}
+		}
+	}
+}
+
+[compatVersion = < 10.4.0]
+	plugin.tx_ccimage {
+		view {
+			templateRootPaths {
+				0 = EXT:cc_image/Resources/Private/Legacy/Templates/
+			}
+			partialRootPaths {
+				0 = EXT:cc_image/Resources/Private/Legacy/Partials/
+			}
+			layoutRootPaths {
+				0 = EXT:cc_image/Resources/Private/Legacy/Layouts/
+			}
+		}
+	}
+[global]
+
+lib.contentElement {
+	templateRootPaths {
+		2 = EXT:cc_image/Resources/Private/Fluid/Templates/
+	}
+	partialRootPaths {
+		2 = EXT:cc_image/Resources/Private/Fluid/Partials/
+	}
+	layoutRootPaths {
+		2 = EXT:cc_image/Resources/Private/Fluid/Layouts/
+	}
+}
+[compatVersion = < 10.4.0]
+	lib.contentElement {
+		templateRootPaths {
+			2 = EXT:cc_image/Resources/Private/Legacy/Fluid/Templates/
+		}
+		partialRootPaths {
+			2 = EXT:cc_image/Resources/Private/Legacy/Fluid/Partials/
+		}
+		layoutRootPaths {
+			2 = EXT:cc_image/Resources/Private/Legacy/Fluid/Layouts/
+		}
+	}
+[global]
